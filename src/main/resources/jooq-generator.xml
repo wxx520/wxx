@@ -1,0 +1,50 @@
+<configuration>
+	<jdbc>
+		<driver>com.mysql.cj.jdbc.Driver</driver>
+		<url>jdbc:mysql://localhost:3306/wxx</url>
+		<user>lisp</user>
+        <password>lisp</password>
+	</jdbc>
+	<generator>
+		<database>
+			<!-- gen all po entity for all tables in db wxx -->
+			<name>org.jooq.meta.mysql.MySQLDatabase</name>
+			<includes>.*</includes>
+            <inputSchema>wxx</inputSchema>
+            
+	        <forcedTypes>
+		        <forcedType>
+					<!-- SMALLINT|TINYINT default type is byte in jood -->
+		    		<name>INTEGER</name>
+		          	<includeTypes>SMALLINT|TINYINT</includeTypes>
+		        </forcedType>
+		    </forcedTypes>
+		</database>
+		<strategy>
+			<matchers>
+				<tables>
+					<table>
+						<pojoClass>
+							<!-- all entity name ends with Po(persist object) -->
+						  <expression>$0_Po</expression>
+						  <transform>PASCAL</transform>
+						</pojoClass>
+					</table>
+				</tables>
+			</matchers>
+		</strategy>
+		<generate>
+		    <javaTimeTypes>true</javaTimeTypes>
+            <pojos>true</pojos>
+		    <fluentSetters>true</fluentSetters>
+            <pojosToString>true</pojosToString>
+		    <daos>true</daos>
+		</generate>
+		<target>
+			<!-- all entity save in specific package -->
+            <packageName>com.rita.wxx.po</packageName>
+            <directory>src/main/java/</directory>
+            <encoding>UTF-8</encoding>
+        </target>
+	</generator>
+</configuration>
