@@ -31,12 +31,13 @@ public class WxxLogAspect {
     public Object aroundSayHello(ProceedingJoinPoint pjp, String name) throws Throwable {
         long current = System.currentTimeMillis();
         Object retVal = pjp.proceed();
+        pjp.getArgs();
         long usedTime = System.currentTimeMillis() - current;
         System.out.println("aroud sayHello advice executed " + usedTime);
         return retVal;
     }
 
-    @Before(value = "within(com.rita.wxx.aop.springaop..*) && execution(public * innerInvoke(..))")
+    @Before(value = "@annotation(com.rita.wxx.aop.springaop.WxxLog)")
     public void beforeInnerInvoke() {
         System.out.println("------------before innerInvoke--------------");
     }

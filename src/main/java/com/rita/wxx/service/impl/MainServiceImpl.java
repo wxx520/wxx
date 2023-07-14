@@ -1,5 +1,6 @@
 package com.rita.wxx.service.impl;
 
+import com.rita.wxx.aop.springaop.MyServiceA;
 import com.rita.wxx.po.Tables;
 import com.rita.wxx.po.tables.pojos.PersonPo;
 import com.rita.wxx.po.tables.records.PersonRecord;
@@ -23,8 +24,12 @@ public class MainServiceImpl implements MainService {
     @Autowired
     private DSLContext dslContext;
 
+    @Autowired
+    private MyServiceA myServiceA;
+
     @Override
     public PersonPo hello() {
+        myServiceA.logParameter("first aop");
         return dslContext.selectFrom(Tables.PERSON)
                 .where(Tables.PERSON.ID.eq(1L))
                 .fetchOneInto(PersonPo.class);
